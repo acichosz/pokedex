@@ -1,1 +1,15 @@
-/* You can add global styles to this file, and also import other style files */
+*{
+    font-family: 'Roboto', sans-serif;
+    color: #2a2a2a;
+}
+.maxImgSize{
+    height: 210px;
+    overflow: hidden;
+    border-radius: 20px 20px 0 0;
+    img{
+        width: 140%;
+        position: relative;
+        top: -60px;
+        left: -50px;
+    }
+}

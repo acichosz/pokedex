@@ -1,1 +1,24 @@
+<div class="d-flex justify-content-center" *ngIf="pokemonService.isSpinnerVisible" >
+    <div class="spinner-grow text-danger" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-dark" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-danger" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+    <div class="spinner-grow text-dark" role="status">
+        <span class="sr-only">Loading...</span>
+    </div>
+</div>
+<header>
+    <!-- <div class="logo-respo"> -->
+        <img src="https://images.pokemontcg.io/base1/symbol.png" alt="">
+    <!-- </div> -->
+</header>  
+
 <router-outlet></router-outlet>
+<footer>
+    <p>&copy; 2019 Anita Cichosz</p> 
+</footer>

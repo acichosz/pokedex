@@ -1,6 +1,6 @@
 export class Pokemon{
     artist: string = null;
-    // attacks: Array [ {…}, {…} ]​​​;
+    attacks: Attack [] = []​​​;
     convertedRetreatCost: number = null;
     ​​​hp: number = null;
     id: string = null;
@@ -10,21 +10,30 @@ export class Pokemon{
     nationalPokedexNumber: number = null;
     number: number = null;
     rarity: string = null;
-    // resistances: Array [ {…} ]​​​
-    // retreatCost: Array [ "Colorless" ]​​​
+    retreatCost: string[] = []​;​​
     series: string = null;
     set: string = null;
     setCode: string = null;
     subtype: string = null;
     supertype: string = null;
-    // types: Array [ "Fighting" ]​​​
-    // weaknesses: (1) […
+    types: string[] = [];
+    weaknesses: Weakness[] =[]
 }
-
+export class Attack{
+    cost: string [] = [];
+      name: string = null;
+      text: string = null;
+      damage: string = null
+      convertedEnergyCost: number = null;
+}
+export class Weakness{
+    type: string = null;
+    value: string = null;
+}
 export class Page{
     cards: Pokemon[]
 }
 
 export class Card{
-    card: Pokemon[]
+    card = new Pokemon();
 }
