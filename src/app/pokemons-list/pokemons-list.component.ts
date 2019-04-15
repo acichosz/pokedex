@@ -32,7 +32,7 @@ export class PokemonsListComponent implements OnInit, OnDestroy {
       await this.showPokemonDetails(id);
     }
     $(window).scroll( async loadMore => {
-      if(this.isScrolled()){
+      if(this.isScrolled()<10){
         this.pageNumber += 1;
         if( (this.elementsOnPage * (this.pageNumber)) < this.totalElementsNumber ){
           await this.getPokemonsList();
@@ -44,7 +44,7 @@ export class PokemonsListComponent implements OnInit, OnDestroy {
   isScrolled() {
     let docHeight = $(document).height();
     let scroll    = $(window).height() + $(window).scrollTop();
-    return (docHeight == scroll);
+    return (Math.abs(docHeight - scroll));
   }
 
   ngOnDestroy() {
