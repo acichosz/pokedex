@@ -1,6 +1,7 @@
+$fontColor: #2a2a2a;
 *{
     font-family: 'Roboto', sans-serif;
-    color: #2a2a2a;
+    color: $fontColor;
 }
 .maxImgSize{
     height: 210px;
@@ -11,5 +12,43 @@
         position: relative;
         top: -60px;
         left: -50px;
+    }
+}
+
+.flexContainer{
+    display: flex;
+    width: 80%;
+    margin: 0 auto;
+    flex-wrap: wrap;
+    justify-content: center;
+    .card{
+        margin: 20px;
+        cursor: pointer;
+        border: 6px solid rgb(253,253,150);
+        background-color: #fafafa;
+        border-radius: 30px;
+        animation-name: cardsAnimation;
+        animation-duration: 1s;
+    }
+}
+@keyframes cardsAnimation
+{
+  0% { opacity: 0; }
+  50% { opacity: 0.5; }
+  100% { opacity: 1; }
+}
+
+@media screen and (max-width: 420px) {
+    header img{
+        width: 70%;
+    }
+    .card{
+        margin: 10px 5px;
+        .maxImgSize{
+            height: 180px;
+            img{
+                width: 160%;
+            }
+        }
     }
 }

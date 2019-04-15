@@ -13,16 +13,17 @@ export class PokemonService {
     private httpClient: HttpClient
   ) { }
 
-  async getPokemons(page: number, pageSize: number, rarityFilter: string, typeFilter: string){
+  async getPokemons(page: number, pageSize: number, rarityFilter: string = '', typeFilter: string = '', minHP: string = ''){
     let url: string = this.baseUrl + 'cards';
     let param = new HttpParams()
     .set('page', page.toString())
     .set('pageSize', pageSize.toString())
+    .set('supertype', 'Pokémon')
     .set('rarity', rarityFilter)
     .set('types', typeFilter)
-    .set('supertype', 'Pokémon')
+    .set('hp', minHP)
 
-    return await this.httpClient.get<Page>( url, {params:param}).toPromise();
+    return await this.httpClient.get<Page>( url, {params:param, observe: 'response'}).toPromise();
   }
 
   async getPokemonById(pokemonID: string){

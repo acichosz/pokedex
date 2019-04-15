@@ -1,29 +1,28 @@
-
   <!-- Modal -->
-  <div class="modal fade" id="pokemonDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-xl" role="document">
-      <div class="modal-content">
-        <div class="modal-header">
-          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-            <span aria-hidden="true">&times;</span>
-          </button>
-        </div>
-        <div class="modal-body">
-            <app-pokemon-details (similarPokemonClicked)="onSimilarPokemonClicked()"></app-pokemon-details>
-        </div>
-        <div class="modal-footer">
-        </div>       
+<div class="modal fade" id="pokemonDetailsModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-xl" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <app-pokemon-details></app-pokemon-details>
+      </div>
+      <div class="modal-footer">
+      </div>   
     </div>
   </div>
 </div>
 
 <div class="flexContainer">
-  <div *ngFor="let pokemon of pokemonsList" class="card" style="width: 18rem;" (click)="showPokemonDetails(pokemon.id)">
+  <div *ngFor="let pokemon of pokemonsList" class="card" style="width: 18rem;" [routerLink]="['/pokedex', pokemon.id]" (click)="showPokemonDetails(pokemon.id)">
     <div class="maxImgSize">
         <img src="{{pokemon.imageUrl}}" class="card-img-top" alt="pokemon.name">
     </div>
       <div class="card-body">
-        <h5 class="card-title">{{pokemon.name}}</h5>
+        <h5>{{pokemon.name}}</h5>
         <p class="card-text">Supertype: {{pokemon.supertype}}</p>
       </div>
     </div>

@@ -6,28 +6,28 @@
     justify-content: center;
     .card{
         margin: 20px;
+        cursor: pointer;
     }
 }
-.appTitle{
-    text-align: center;
+.modal-header, .modal-footer{
+    border: none;
 }
  .modal-xl {
     max-width: 1100px;
 }
-.card-title{
-    font-weight: bold;
-}
-.card{
-    border: 6px solid rgb(253,253,150);
-    background-color: #fafafa;
-    border-radius: 30px;
-}
 
-@media screen and (max-width: 420px) {
+@media screen and (max-width: 850px) {
     .flexContainer{
-        width: 100%;
+        width: 90%;
         .card{
             margin: 10px 5px;
+        }
+    }
+}
+@media screen and (max-width: 420px) {
+    .card{
+        .maxImgSize{
+            height: 180px;
         }
     }
 }

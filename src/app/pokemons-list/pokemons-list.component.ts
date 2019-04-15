@@ -1,8 +1,9 @@
-import { Component, OnInit, ViewChild, OnDestroy } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
 import { PokemonService } from '../pokemon.service';
-import { Page, Pokemon } from '../models';
+import { Pokemon } from '../models';
+import { ActivatedRoute } from '@angular/router';
 import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
-declare var $;
+declare let $;
 
 @Component({
   selector: 'app-pokemons-list',
@@ -11,32 +12,39 @@ declare var $;
 })
 export class PokemonsListComponent implements OnInit, OnDestroy {
   pokemonsList: Pokemon[] = [];
-  selectedPokemonId: string = null;
   pageNumber: number = 0;
-  lastRequestElementsNumber = null;
-  @ViewChild(PokemonDetailsComponent) pokemonDetailsComponent : PokemonDetailsComponent;
+  elementsOnPage: number = 20;
+  totalElementsNumber = null;
+
+  @ViewChild(PokemonDetailsComponent) pokemonDetails: PokemonDetailsComponent;
 
   constructor(
     private pokemonService: PokemonService,
+    private activatedRoute: ActivatedRoute,
   ) { }
 
   async ngOnInit() {
+    await this.getPokemonsList();
+    let id = this.activatedRoute.snapshot.paramMap.get('id');
+    if(id !== null){
+      await this.showPokemonDetails(id);
+    }
     $(window).scroll( async loadMore => {
-      if(isMyStuffScrolling()){
+      if(this.isScrolled()){
         this.pageNumber += 1;
-        if( this.lastRequestElementsNumber == 20 ){
+        if( (this.elementsOnPage * (this.pageNumber)) < this.totalElementsNumber ){
           await this.getPokemonsList();
         }
       }
     }); 
-    
-    function isMyStuffScrolling() {
-      var docHeight = $(document).height();
-      var scroll    = $(window).height() + $(window).scrollTop();
-      return (docHeight == scroll);
-    }
-    await this.getPokemonsList();
   }
+
+  isScrolled() {
+    let docHeight = $(document).height();
+    let scroll    = $(window).height() + $(window).scrollTop();
+    return (docHeight == scroll);
+  }
+
   ngOnDestroy() {
     $(window).unbind('scroll');
   }
@@ -44,9 +52,9 @@ export class PokemonsListComponent implements OnInit, OnDestroy {
   async getPokemonsList(){
     this.pokemonService.spinnerStart();
     try {
-      var result: Page = await this.pokemonService.getPokemons(this.pageNumber, 20 , '', '');
-      this.lastRequestElementsNumber = result.cards.length;
-      result.cards.forEach(card => {
+      let result: any = await this.pokemonService.getPokemons(this.pageNumber, this.elementsOnPage);
+      this.totalElementsNumber = result.headers.get('Total-Count');
+      result.body.cards.forEach(card => {
         this.pokemonsList.push(card)
       });
       this.pokemonService.spinnerStop();
@@ -57,11 +65,7 @@ export class PokemonsListComponent implements OnInit, OnDestroy {
   }
 
   async showPokemonDetails(id: string){
-    await this.pokemonDetailsComponent.getPokemon(id);
+    await this.pokemonDetails.setPokemon(id);
     $('#pokemonDetailsModal').modal('show');
   }
-  onSimilarPokemonClicked(){
-    $('#pokemonDetailsModal').modal('hide');
-  }
-
 }

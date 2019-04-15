@@ -1,53 +1,52 @@
 
 <div class="pokemonDetails">
-    <div class="media">
-      <div class="img-min">
-        <img src="{{pokemon.card.imageUrlHiRes}}" class="mr-3" alt="{{pokemon.card.name}}">
-      </div>
-      <div class="media-body">
-        <h5 class="mt-0">HP</h5>
-        {{pokemon.card.hp}}
-        <h5 class="mt-0">Name</h5>
-        {{pokemon.card.name}}
-        <h5 class="mt-0">Super type</h5>
-        {{pokemon.card.supertype}}
-        <h5 class="mt-0">Id</h5>
-        {{pokemon.card.id}}
-        <h5 class="mt-0 ">Details</h5>
-        <p>
-          The national pokedex number of {{pokemon.card.name}} is {{pokemon.card.nationalPokedexNumber}}.
-          <span *ngIf="pokemon.card.rarity" >It's a {{pokemon.card.rarity | lowercase}} pokemon. </span>
-          <span *ngIf="pokemon.card.series" >Series the card appears in: {{pokemon.card.series}}. </span>
-          <span *ngIf="pokemon.card.set" >Card appears in {{pokemon.card.set}} set. </span>
-        </p>
-        <p *ngIf="pokemon.card.weaknesses.length !== 0">
-          The {{pokemon.card.name}}'s weaknesses: 
-          <span *ngFor="let weakness of pokemon.card.weaknesses">{{weakness.type}}: value: {{weakness.value}} </span>.
-        </p>
-        <p *ngIf="pokemon.card.types.length !== 0">
-          Types: 
-          <span *ngFor="let type of pokemon.card.types">{{type}}</span>
-        </p>
-      </div>
+  <div class="media">
+    <div class="img-min">
+      <img src="{{pokemon.card.imageUrlHiRes}}" class="mr-3" alt="{{pokemon.card.name}}">
     </div>
-    <h5 *ngIf="pokemon.card.attacks.length !== 0" class="mt-0">Attacks</h5>
-    <div class="attacks" *ngFor="let attack of pokemon.card.attacks">
-      <p>{{attack.name}}, damage: {{attack.damage}}, energy cost: {{attack.convertedEnergyCost}}, {{attack.text}}</p>
+    <div class="media-body">
+      <h5 class="mt-0">HP</h5>
+      {{pokemon.card.hp}}
+      <h5 class="mt-0">Name</h5>
+      {{pokemon.card.name}}
+      <h5 class="mt-0">Super type</h5>
+      {{pokemon.card.supertype}}
+      <h5 class="mt-0">Id</h5>
+      {{pokemon.card.id}}
+      <h5 class="mt-0 ">Details</h5>
+      <p>
+        The national pokedex number of {{pokemon.card.name}} is {{pokemon.card.nationalPokedexNumber}}.
+        <span *ngIf="pokemon.card.rarity" >It's a {{pokemon.card.rarity | lowercase}} pokemon. </span>
+        <span *ngIf="pokemon.card.series" >Series the card appears in: {{pokemon.card.series}}. </span>
+        <span *ngIf="pokemon.card.set" >Card appears in {{pokemon.card.set}} set. </span>
+      </p>
+      <p *ngIf="pokemon.card.weaknesses.length !== 0">
+        The {{pokemon.card.name}}'s weaknesses: 
+        <span *ngFor="let weakness of pokemon.card.weaknesses">{{weakness.type}}: value: {{weakness.value}} </span>.
+      </p>
+      <p *ngIf="pokemon.card.types.length !== 0">
+        Types: 
+        <span *ngFor="let type of pokemon.card.types">{{type}}</span>
+      </p>
     </div>
-    <h1>Similar Pokemons</h1>
-    <div class="similarPokemons" >
-        <div *ngFor="let pokemon of similarPokemons" class="card" style="width: 18rem;" (click)="navigateToPockemon(pokemon.id)">
-            <div>
-                <div class="maxImgSize">
-                <img src="{{pokemon.imageUrl}}" class="card-img-top" alt="pokemon.name">
-                </div>
-                <div class="card-body">
-                  <h5 class="card-title">{{pokemon.name}}</h5>
-                  <p class="card-text">{{pokemon.supertype}}</p>
-                </div>
-            </div>
+  </div>
+  <h5 *ngIf="pokemon.card.attacks.length !== 0" class="mt-0">Attacks</h5>
+  <div class="attacks" *ngFor="let attack of pokemon.card.attacks">
+    <p>{{attack.name}}, damage: {{attack.damage}}, energy cost: {{attack.convertedEnergyCost}}, {{attack.text}}</p>
+  </div>
+  <h1>Similar Pokemons</h1>
+  <div class="flexContainer">
+      <div *ngFor="let pokemon of similarPokemons" class="card" style="width: 18rem;" (click)="changePokemon(pokemon.id)">
+        <div>
+          <div class="maxImgSize">
+          <img src="{{pokemon.imageUrl}}" class="card-img-top" alt="pokemon.name">
           </div>
-          <h4 *ngIf="similarPokemons.length == 0" >This Pokemon is unique, no other similar to it.</h4>
+          <div class="card-body">
+            <h5>{{pokemon.name}}</h5>
+            <p class="card-text">{{pokemon.supertype}}</p>
+          </div>
+        </div>
       </div>
+      <h4 *ngIf="similarPokemons.length == 0" >This Pokemon is unique, no other is similar to it.</h4>
+    </div>
 </div>
-<!-- series, types, rarity, nationalPokedexNumber, hp, set, weakness, attacks, evolvesFrom (you can add more) -->

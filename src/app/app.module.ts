@@ -9,12 +9,9 @@ import { PokemonDetailsComponent } from './pokemon-details/pokemon-details.compo
 import { PokemonService } from './pokemon.service';
 
 const appRoutes: Routes = [
-  { path: 'pokedex', component: PokemonsListComponent },
-  { path: 'pokedex/:id', component: PokemonDetailsComponent },
-  { path: '',
-    redirectTo: '/pokedex',
-    pathMatch: 'full'
-  },
+  { path: 'pokedex', component: PokemonsListComponent},
+  { path: 'pokedex/:id', component: PokemonsListComponent},
+  { path: '', redirectTo: '/pokedex', pathMatch: 'full'},
 ];
 
 @NgModule({
@@ -31,7 +28,7 @@ const appRoutes: Routes = [
     )
   ],
   providers: [
-    PokemonService
+    PokemonService,
   ],
   bootstrap: [AppComponent]
 })

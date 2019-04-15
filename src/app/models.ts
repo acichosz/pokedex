@@ -21,17 +21,17 @@ export class Pokemon{
 }
 export class Attack{
     cost: string [] = [];
-      name: string = null;
-      text: string = null;
-      damage: string = null
-      convertedEnergyCost: number = null;
+    name: string = null;
+    text: string = null;
+    damage: string = null
+    convertedEnergyCost: number = null;
 }
 export class Weakness{
     type: string = null;
     value: string = null;
 }
 export class Page{
-    cards: Pokemon[]
+    cards: Pokemon[]= [];
 }
 
 export class Card{

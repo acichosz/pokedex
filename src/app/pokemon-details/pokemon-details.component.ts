@@ -1,41 +1,29 @@
-import { Component, OnInit, EventEmitter, Output } from '@angular/core';
+import { Component} from '@angular/core';
 import { PokemonService } from '../pokemon.service';
-import { ActivatedRoute, Router } from '@angular/router';
-import { Card, Page, Pokemon } from '../models';
+import { Card, Pokemon } from '../models';
 
 @Component({
   selector: 'app-pokemon-details',
   templateUrl: './pokemon-details.component.html',
   styleUrls: ['./pokemon-details.component.scss']
 })
-export class PokemonDetailsComponent implements OnInit {
+export class PokemonDetailsComponent {
   pokemon = new Card();
   similarPokemons: Pokemon [] = [];
   typeFilter: string = '';
   rarityFilter: string = '';
-  
-  @Output() similarPokemonClicked = new EventEmitter();
+  hpMinFilter: string = '';
 
   constructor(
     private pokemonService: PokemonService,
-    private activatedRoute: ActivatedRoute,
-    private router: Router
-    
   ) { }
 
-  async ngOnInit() {
-    var id = this.activatedRoute.snapshot.paramMap.get('id');
-    if(id !== null){
-      await this.getPokemon(id);
-    }
-  }
 
-  async getPokemon(id: string){
+  async setPokemon(id: string){
     this.pokemonService.spinnerStart();
     try {
       this.pokemon = await this.pokemonService.getPokemonById(id);
-      this.setFiltersForSimilarPokemons();
-      await this.getSimilarPokemons();
+      await this.setSimilarPokemons();
       this.clearFilters();
       this.pokemonService.spinnerStop();
     }
@@ -44,43 +32,47 @@ export class PokemonDetailsComponent implements OnInit {
       this.pokemonService.spinnerStop();
     }
   }
-  setFiltersForSimilarPokemons(){
-    this.pokemon.card.types.forEach(element => {
-      this.typeFilter += element + ','
-    });
-    this.rarityFilter= this.pokemon.card.rarity;
-  }
-  clearFilters(){
-    this.rarityFilter = '';
-    this.typeFilter = '';
-  }
 
-  async getSimilarPokemons(){
-    this.similarPokemons = [];
+  async setSimilarPokemons(){
+    let hpMax: number = 1.1 * this.pokemon.card.hp;
+    this.setFiltersForSimilarPokemons();
     try {
-      var result: Page = await this.pokemonService.getPokemons(0, 20, this.rarityFilter, this.typeFilter);
-        result.cards.forEach(card => {
-          if(this.isHpValueSimilar(card.hp) && this.similarPokemons.length < 3 && this.pokemon.card.id !== card.id){
-            this.similarPokemons.push(card);
-          }
-        });
+      let result: any = await this.pokemonService.getPokemons(0, 20, this.rarityFilter, this.typeFilter, this.hpMinFilter);
+      // Logical operators don't work wit HP filter, so there were set only hp min filter. Hp max is included below
+      let allSimilarPokemons: Pokemon[] = result.body.cards.filter(pokemon => (this.pokemon.card.id !== pokemon.id && pokemon.hp<hpMax));
+      this.similarPokemons = this.drawSimilarPokemons(allSimilarPokemons);
     } 
     catch (error) {
     }
   }
 
-  isHpValueSimilar(hpToCheck: number): boolean{
-    var minHp: number = 0.9 * this.pokemon.card.hp;
-    var maxHp: number = 1.1 * this.pokemon.card.hp;
-    if(hpToCheck >= minHp && hpToCheck <= maxHp){
-      return true
-    }
-    else {
-      return false
-    }
+  setFiltersForSimilarPokemons(){
+    this.pokemon.card.types.forEach(element => {
+      this.typeFilter += element + '|';
+    });
+    this.rarityFilter= this.pokemon.card.rarity;
+    this.hpMinFilter = 'gte' + (0.9 * this.pokemon.card.hp).toString();
   }
-  navigateToPockemon(pokemonId: number){
-    this.similarPokemonClicked.emit();
-    this.router.navigate(['/pokedex',pokemonId]);
+
+  drawSimilarPokemons(pokemons: Pokemon[]): Pokemon[]{
+    let drawnPokemons: Pokemon[] = [];
+    for (let i = 0; i <3; i++) {
+      if(pokemons.length !== 0){
+        let randomIndex: number = Math.floor(Math.random() * pokemons.length);
+        drawnPokemons.push(pokemons[randomIndex]);
+        pokemons.splice(randomIndex, 1);
+      }
+    }
+    return drawnPokemons;
+  }
+
+  async changePokemon(pokemonId: string){
+    await this.setPokemon(pokemonId);
+  }
+
+  clearFilters(){
+    this.rarityFilter = '';
+    this.typeFilter = '';
+    this.hpMinFilter = '';
   }
 }

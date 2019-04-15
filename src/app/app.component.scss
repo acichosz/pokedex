@@ -1,13 +1,12 @@
-.justify-content-center{
+.spinner{
     z-index: 5000;
     height: 100vh;
     width: 100vw;
     position: fixed;
+    display: flex;
+    justify-content: center;
     align-items: center;
     background:rgba(255,255,255,0.5);
-    div{
-        top: 50%;
-    }
 }
 footer{
     background-color: red;
@@ -26,11 +25,6 @@ header{
     img{
         width: 50%;
         max-width: 600px;
-        margin: 20px;
-    }
-}
-@media screen and (max-width: 420px) {
-    header img{
-        width: 70%;
+        margin: 20px auto;
     }
 }

@@ -2,10 +2,8 @@
     height: 210px;
     overflow: hidden;
 }
-.similarPokemons{
-    display:flex;
-    flex-wrap: wrap;
-    justify-content: center;
+.flexContainer{
+    width: 100%;
     .card{
         width: 80px;
         margin: 10px 15px;
@@ -38,14 +36,30 @@
         line-height: 40px;
     }
 }
-.card{
-    border: 6px solid rgb(253,253,150);
-    background-color: #fafafa;
-    border-radius: 30px;
-}
 .media-body{
     min-width: 340px;
     p{
         display: inline;
+    }
+}
+
+@media screen and (max-width: 420px) {
+    .card{
+        margin: 10px 5px;
+        .maxImgSize{
+            height: 180px;
+        }
+    }
+    .pokemonDetails .img-min{
+        height: 200px;
+        img{
+            width: 200% 
+        }
+    }
+    .media-body{
+        min-width: auto;
+        p{
+            display: inline;
+        }
     }
 }
