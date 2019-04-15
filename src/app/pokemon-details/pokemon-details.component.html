@@ -16,9 +16,9 @@
       <h5 class="mt-0 ">Details</h5>
       <p>
         The national pokedex number of {{pokemon.card.name}} is {{pokemon.card.nationalPokedexNumber}}.
-        <span *ngIf="pokemon.card.rarity" >It's a {{pokemon.card.rarity | lowercase}} pokemon. </span>
-        <span *ngIf="pokemon.card.series" >Series the card appears in: {{pokemon.card.series}}. </span>
-        <span *ngIf="pokemon.card.set" >Card appears in {{pokemon.card.set}} set. </span>
+        <span *ngIf="pokemon.card.rarity">It's a {{pokemon.card.rarity | lowercase}} pokemon. </span>
+        <span *ngIf="pokemon.card.series">Series the card appears in: {{pokemon.card.series}}. </span>
+        <span *ngIf="pokemon.card.set">Card appears in {{pokemon.card.set}} set. </span>
       </p>
       <p *ngIf="pokemon.card.weaknesses.length !== 0">
         The {{pokemon.card.name}}'s weaknesses: 
@@ -36,7 +36,7 @@
   </div>
   <h1>Similar Pokemons</h1>
   <div class="flexContainer">
-      <div *ngFor="let pokemon of similarPokemons" class="card" style="width: 18rem;" (click)="changePokemon(pokemon.id)">
+      <div *ngFor="let pokemon of similarPokemons" class="card" style="width: 18rem;" (click)=" changePokemon(pokemon.id)">
         <div>
           <div class="maxImgSize">
           <img src="{{pokemon.imageUrl}}" class="card-img-top" alt="pokemon.name">

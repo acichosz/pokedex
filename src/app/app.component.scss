@@ -1,3 +1,5 @@
+@import '/sharedStyles.scss';
+
 .spinner{
     z-index: 5000;
     height: 100vh;
@@ -9,22 +11,22 @@
     background:rgba(255,255,255,0.5);
 }
 footer{
-    background-color: red;
+    background-color: $footerBacgroundColor;
     p{
         text-align: center;
         line-height: 60px;
-        color: white;
+        color: $footerColor;
         font-weight: bold;
     }
 }
 header{
     text-align: center;
     margin-bottom: 50px;
-    background-color: #fafafa;
+    background-color: $headerBacgroundColor;
     box-shadow: 0px 10px 40px -14px rgba(0,0,0,0.26);
     img{
         width: 50%;
-        max-width: 600px;
+        max-width: 500px;
         margin: 20px auto;
     }
 }

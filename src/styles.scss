@@ -1,4 +1,5 @@
-$fontColor: #2a2a2a;
+@import './sharedStyles.scss';
+
 *{
     font-family: 'Roboto', sans-serif;
     color: $fontColor;
@@ -22,11 +23,7 @@ $fontColor: #2a2a2a;
     flex-wrap: wrap;
     justify-content: center;
     .card{
-        margin: 20px;
-        cursor: pointer;
-        border: 6px solid rgb(253,253,150);
-        background-color: #fafafa;
-        border-radius: 30px;
+        @include card(6px, solid, rgb(253,253,150), 20px, #fafafa, 30px);
         animation-name: cardsAnimation;
         animation-duration: 1s;
     }

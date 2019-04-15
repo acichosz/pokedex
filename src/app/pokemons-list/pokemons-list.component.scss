@@ -1,14 +1,3 @@
-.flexContainer{
-    display: flex;
-    width: 80%;
-    margin: 0 auto;
-    flex-wrap: wrap;
-    justify-content: center;
-    .card{
-        margin: 20px;
-        cursor: pointer;
-    }
-}
 .modal-header, .modal-footer{
     border: none;
 }
@@ -21,13 +10,6 @@
         width: 90%;
         .card{
             margin: 10px 5px;
-        }
-    }
-}
-@media screen and (max-width: 420px) {
-    .card{
-        .maxImgSize{
-            height: 180px;
         }
     }
 }

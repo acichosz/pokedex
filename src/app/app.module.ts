@@ -7,6 +7,7 @@ import { AppComponent } from './app.component';
 import { PokemonsListComponent } from './pokemons-list/pokemons-list.component';
 import { PokemonDetailsComponent } from './pokemon-details/pokemon-details.component';
 import { PokemonService } from './pokemon.service';
+import { UtilService } from './util.service';
 
 const appRoutes: Routes = [
   { path: 'pokedex', component: PokemonsListComponent},
@@ -29,6 +30,7 @@ const appRoutes: Routes = [
   ],
   providers: [
     PokemonService,
+    UtilService
   ],
   bootstrap: [AppComponent]
 })

@@ -1,0 +1,15 @@
+$fontColor: #2a2a2a;
+$cardBorderColor: rgb(253,253,150);
+$cardBackgroundColor: #fafafa;
+$imgDetailsBorderColor: gray;
+$footerBacgroundColor: red;
+$footerColor: white;
+$headerBacgroundColor: #fafafa;
+
+@mixin card($borderThickness, $borderType, $color, $margin, $backgroundColor, $borderRadius) {
+    margin: $margin;
+    border: $borderThickness $borderType $color;
+    background-color: $backgroundColor;
+    border-radius: $borderRadius;
+    cursor: pointer;
+}  

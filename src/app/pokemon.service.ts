@@ -7,10 +7,9 @@ import { Page, Card } from './models';
 })
 export class PokemonService {
   baseUrl: string = 'https://api.pokemontcg.io/v1/';
-  isSpinnerVisible: boolean = false;
 
   constructor(
-    private httpClient: HttpClient
+    private httpClient: HttpClient,
   ) { }
 
   async getPokemons(page: number, pageSize: number, rarityFilter: string = '', typeFilter: string = '', minHP: string = ''){
@@ -30,13 +29,4 @@ export class PokemonService {
     let url: string = this.baseUrl + 'cards/' + pokemonID;
     return await this.httpClient.get<Card>(url).toPromise();
   }
-
-  spinnerStart(){
-    this.isSpinnerVisible = true;
-  }
-
-  spinnerStop(){
-    this.isSpinnerVisible = false;
-  }
-
 }

@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { PokemonService } from './pokemon.service';
+import { UtilService } from './util.service';
 
 @Component({
   selector: 'app-root',
@@ -8,6 +8,6 @@ import { PokemonService } from './pokemon.service';
 })
 export class AppComponent {
   constructor(
-    private pokemonService: PokemonService
+    private utilService: UtilService
   ){}
 }

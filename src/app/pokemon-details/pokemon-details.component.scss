@@ -1,7 +1,5 @@
-.maxImgSize{
-    height: 210px;
-    overflow: hidden;
-}
+@import './sharedStyles.scss';
+
 .flexContainer{
     width: 100%;
     .card{
@@ -20,15 +18,15 @@
         width: 350px;
         height: 300px;
         overflow: hidden;
-        border: 5px solid gray;
+        border: 5px solid $imgDetailsBorderColor;
         border-radius: 30px;
+        margin: 0 20px 20px 0;
         img{
             position: relative;
             top: -70px;
             left: -130px;
             width: 150%;
         }
-        margin: 0 20px 20px 0;
     }
     h1{
         text-align: center;
@@ -44,12 +42,6 @@
 }
 
 @media screen and (max-width: 420px) {
-    .card{
-        margin: 10px 5px;
-        .maxImgSize{
-            height: 180px;
-        }
-    }
     .pokemonDetails .img-min{
         height: 200px;
         img{
@@ -58,8 +50,5 @@
     }
     .media-body{
         min-width: auto;
-        p{
-            display: inline;
-        }
     }
 }

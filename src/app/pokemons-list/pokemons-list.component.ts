@@ -3,6 +3,7 @@ import { PokemonService } from '../pokemon.service';
 import { Pokemon } from '../models';
 import { ActivatedRoute } from '@angular/router';
 import { PokemonDetailsComponent } from '../pokemon-details/pokemon-details.component';
+import { UtilService } from '../util.service';
 declare let $;
 
 @Component({
@@ -20,6 +21,7 @@ export class PokemonsListComponent implements OnInit, OnDestroy {
 
   constructor(
     private pokemonService: PokemonService,
+    private utilService: UtilService,
     private activatedRoute: ActivatedRoute,
   ) { }
 
@@ -50,18 +52,24 @@ export class PokemonsListComponent implements OnInit, OnDestroy {
   }
 
   async getPokemonsList(){
-    this.pokemonService.spinnerStart();
+    this.utilService.spinnerStart();
     try {
       let result: any = await this.pokemonService.getPokemons(this.pageNumber, this.elementsOnPage);
       this.totalElementsNumber = result.headers.get('Total-Count');
       result.body.cards.forEach(card => {
         this.pokemonsList.push(card)
       });
-      this.pokemonService.spinnerStop();
+      this.utilService.spinnerStop();
     } 
     catch (error) {
-      this.pokemonService.spinnerStop();
+      this.utilService.spinnerStop();
     }
+  }
+  addIdToUrl(id: string){
+    this.utilService.addIdToUrl(id); 
+  }
+  removeIDFromUrl(){
+    this.utilService.removeIDFromUrl(); 
   }
 
   async showPokemonDetails(id: string){

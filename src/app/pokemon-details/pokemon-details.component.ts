@@ -1,6 +1,7 @@
 import { Component} from '@angular/core';
 import { PokemonService } from '../pokemon.service';
 import { Card, Pokemon } from '../models';
+import { UtilService } from '../util.service';
 
 @Component({
   selector: 'app-pokemon-details',
@@ -16,20 +17,21 @@ export class PokemonDetailsComponent {
 
   constructor(
     private pokemonService: PokemonService,
+    private utilService: UtilService,
   ) { }
 
 
   async setPokemon(id: string){
-    this.pokemonService.spinnerStart();
+    this.utilService.spinnerStart();
     try {
       this.pokemon = await this.pokemonService.getPokemonById(id);
       await this.setSimilarPokemons();
       this.clearFilters();
-      this.pokemonService.spinnerStop();
+      this.utilService.spinnerStop();
     }
     catch (error)
     {
-      this.pokemonService.spinnerStop();
+      this.utilService.spinnerStop();
     }
   }
 
@@ -67,6 +69,8 @@ export class PokemonDetailsComponent {
   }
 
   async changePokemon(pokemonId: string){
+    this.removeIDFromUrl();
+    this.addIdToUrl(pokemonId);
     await this.setPokemon(pokemonId);
   }
 
@@ -74,5 +78,12 @@ export class PokemonDetailsComponent {
     this.rarityFilter = '';
     this.typeFilter = '';
     this.hpMinFilter = '';
+  }
+
+  addIdToUrl(id: string){
+    this.utilService.addIdToUrl(id); 
+  }
+  removeIDFromUrl(){
+    this.utilService.removeIDFromUrl(); 
   }
 }
