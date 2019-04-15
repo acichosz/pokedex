@@ -1,4 +1,4 @@
-@import './sharedStyles.scss';
+@import 'app/sharedStyles.scss';
 
 *{
     font-family: 'Roboto', sans-serif;
@@ -25,13 +25,11 @@
     .card{
         @include card(6px, solid, rgb(253,253,150), 20px, #fafafa, 30px);
         animation-name: cardsAnimation;
-        animation-duration: 1s;
     }
 }
 @keyframes cardsAnimation
 {
   0% { opacity: 0; }
-  50% { opacity: 0.5; }
   100% { opacity: 1; }
 }
 
